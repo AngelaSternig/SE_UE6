@@ -2,56 +2,63 @@
 
 package at.aau.serg.exercises.math;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MyMathTest {
+    private Fraction f;
+    private MyMath mm;
+
+    @BeforeEach
+    public void setUp(){
+        f = new Fraction();
+        mm = new MyMath();
+    }
 
     @Test
     public void x() {
         Double x=10d;
         Double y=5d;
-        Double add=new MyMath().add(x,y);
-        Double sub=new MyMath().sub(x,y);
-        Double mul=new MyMath().mul(x,y);
-        Double div=new MyMath().div(x,y);
 
-        assertTrue(add.equals(new Double(15)));
-        assertTrue(sub.equals(new Double(5)));
-        assertTrue(mul.equals(new Double(50)));
-        assertTrue(div.equals(new Double(2)));
+        assertEquals(15d, (new MyMath().add(x,y).doubleValue()));
+        assertEquals(5d, (new MyMath().sub(x,y).doubleValue()));
+        assertEquals(50d,(new MyMath().mul(x,y).doubleValue()));
+        assertEquals(2d,(new MyMath().div(x, y).doubleValue()));
     }
 
     @Test
-    public void x2() {
-        Fraction f = new Fraction(1,1);
-        MyMath mm = new MyMath();
-        Fraction reduced = mm.reduce(f);
-        assertEquals(new Integer(1),reduced.getNumerator());
-        assertEquals(new Integer(1),reduced.getDenumerator());
+    public void test_Numerator() {
+        f = new Fraction(1,1);
+        assertEquals(Integer.valueOf(1), mm.reduce(f).getNumerator());
 
         f = new Fraction(10,6);
-        mm = new MyMath();
-        reduced = mm.reduce(f);
-        assertEquals(new Integer(5),reduced.getNumerator());
-        assertEquals(new Integer(3),reduced.getDenumerator());
+        assertEquals(Integer.valueOf(5), mm.reduce(f).getNumerator());
 
         f = new Fraction(10,5);
-        mm = new MyMath();
-        reduced = mm.reduce(f);
-        assertEquals(new Integer(2),reduced.getNumerator());
-        assertEquals(new Integer(1),reduced.getDenumerator());
+        assertEquals(Integer.valueOf(2), mm.reduce(f).getNumerator());
+    }
+
+    @Test
+    public void test_Denumerator(){
+        f = new Fraction(1,1);
+        assertEquals(Integer.valueOf(1), mm.reduce(f).getDenumerator());
+
+        f = new Fraction(10,6);
+        assertEquals(Integer.valueOf(3), mm.reduce(f).getDenumerator());
 
         f = new Fraction(10,5);
-        mm = new MyMath();
-        Double aDouble = mm.toDouble(f);
-        assertEquals(new Double(2),aDouble);
+        assertEquals(Integer.valueOf(1), mm.reduce(f).getDenumerator());
+    }
+
+    @Test
+    public void test_ADouble(){
+        f = new Fraction(10,5);
+        assertEquals(new Double(2), mm.toDouble(f));
 
         f = new Fraction(10,4);
-        mm = new MyMath();
-        aDouble = mm.toDouble(f);
-        assertEquals(new Double(2.5d),aDouble);
+        assertEquals(new Double(2.5d), (new MyMath()).toDouble(f));
     }
 }
