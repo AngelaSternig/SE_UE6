@@ -1,3 +1,5 @@
+//12003325 Angela Sternig
+
 package at.aau.serg.exercises.math;
 
 import org.junit.jupiter.api.Test;
